@@ -8,7 +8,7 @@
   "dataTypeList": ["domain", "ip", "url", "fqdn", "uri_path","user-agent", "hash", "email", "mail", "mail_subject" , "registry", "regexp", "other", "filename"],
   "baseConfig": "Elasticsearch",
   "config": {
-    "service": "query",
+    "service": "query"
   },
   "configurationItems": [
     {
@@ -57,7 +57,7 @@
       "multi": false,
       "required": false,
       "defaultValue": "logstash-*"
-    },
+    }
   ],
   "command": "Elasticsearch/elasticsearch_analyzer.py"
 }
