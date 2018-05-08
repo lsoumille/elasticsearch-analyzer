@@ -1,0 +1,63 @@
+{
+  "name": "Elasticsearch_Query",
+  "version": "1.0",
+  "author": "Soumille Lucas",
+  "url": "https://github.com/TheHive-Project/Cortex-Analyzers",
+  "license": "AGPL-V3",
+  "description": "Make queries from observables to Elasticsearch",
+  "dataTypeList": ["domain", "ip", "url", "fqdn", "uri_path","user-agent", "hash", "email", "mail", "mail_subject" , "registry", "regexp", "other", "filename"],
+  "baseConfig": "Elasticsearch",
+  "config": {
+    "service": "query",
+  },
+  "configurationItems": [
+    {
+      "name": "host",
+      "description": "Elasticsearch Hostname",
+      "type": "string",
+      "multi": false,
+      "required": true
+    },
+    {
+      "name": "port",
+      "description": "Elasticsearch Port",
+      "type": "number",
+      "multi": false,
+      "required": false,
+      "defaultValue": 9200
+    },
+    {
+      "name": "https",
+      "description": "Should talk to Elasticsearch API using HTTP or HTTPS",
+      "type": "boolean",
+      "multi": false,
+      "required": false,
+      "defaultValue": true
+    },
+    {
+      "name": "username",
+      "description": "Should talk to Elasticsearch API with this username",
+      "type": "string",
+      "multi": false,
+      "required": false,
+      "defaultValue": ""
+    },
+    {
+      "name": "password",
+      "description": "Should talk to Elasticsearch API with this password",
+      "type": "string",
+      "multi": false,
+      "required": false,
+      "defaultValue": ""
+    },
+    {
+      "name": "index",
+      "description": "Elasticsearch Index to query",
+      "type": "string",
+      "multi": false,
+      "required": false,
+      "defaultValue": "logstash-*"
+    },
+  ],
+  "command": "Elasticsearch/elasticsearch_analyzer.py"
+}
