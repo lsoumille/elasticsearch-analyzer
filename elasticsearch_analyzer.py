@@ -9,30 +9,30 @@ class ElasticSearchAnalyzer():
 
 	#Handle configuration file options
 	def __init__(self):
-		print("START INIT")
-		#Analyzer.__init__(self)
 		#print("START INIT")
-		#self.service = self.get_param('config.service', None, 'Service parameter is missing')
-		#self.host = self.getParam('config.host', "localhost", 'Host parameter is missing')
-		#self.port = self.getParam('config.port', "9200", 'Port parameter is missing')
-		#self.https = self.getParam('config.https', False)
-		#self.username = self.getParam('config.username', 'elastic')
-		#self.password = self.getParam('config.password', 'changeme')
-		#self.index = self.getParam('config.index', "logstash-*")
+		Analyzer.__init__(self)
+		#print("START INIT")
+		self.service = self.get_param('config.service', None, 'Service parameter is missing')
+		self.host = self.getParam('config.host', "localhost", 'Host parameter is missing')
+		self.port = self.getParam('config.port', "9200", 'Port parameter is missing')
+		self.https = self.getParam('config.https', False)
+		self.username = self.getParam('config.username', 'elastic')
+		self.password = self.getParam('config.password', 'changeme')
+		self.index = self.getParam('config.index', "logstash-*")
 		##DEBUG
-		self.https = True
-		self.service = "query"
-		self.host = "localhost"
-		self.port = "9200"
-		self.username = "elastic"
-		self.password = "changeme"
-		self.index = "logstash-*"
+		#self.https = True
+		#self.service = "query"
+		#self.host = "localhost"
+		#self.port = "9200"
+		#self.username = "elastic"
+		#self.password = "changeme"
+		#self.index = "logstash-*"
 		##DEBUG
 		
 
 	#Initialize Elasticsearch session
 	def elasticsearch_connect(self):
-		print("START CONNECT")
+		#print("START CONNECT")
 		try:
 			if self.username is not None:
 				self.https_auth = (self.username, self.password)
@@ -40,18 +40,18 @@ class ElasticSearchAnalyzer():
 				self.https_auth = None
 			self.elasticsearch_api = Elasticsearch(["{}:{}".format(self.host, self.port)], use_ssl=self.https, http_auth=self.https_auth, verify_certs=False)
 		except Exception as e:
-			#self.error(e)
-			print(e)
+			self.error(e)
+			#print(e)
 
 	#Query Elasticsearch
 	def elasticsearch_search(self):
-		print("START SEARCH")
+		#print("START SEARCH")
 		try:
 			self.res = self.elasticsearch_api.search(index=self.index, body={"query": {"match": {'user':'kimchy'}}})
 			print(self.res)
 		except Exception as e:
-			#self.error(e)
-			print(e)
+			self.error(e)
+			#print(e)
 
 	#Generate Short report
 	def summary(self, raw):
@@ -73,14 +73,14 @@ class ElasticSearchAnalyzer():
 		return {"taxonomies": taxonomies}
 
 	def run(self):
-		print("START RUN")
+		#print("START RUN")
 		if self.service == 'es-query':
 			#self.field = self.getParam('field', None, 'Field value is missing')
 			self.elasticsearch_connect()
 			self.elasticsearch_search()
 		else:
-			#self.error('Invalid service')
-			print("Invalid service")
+			self.error('Invalid service')
+			#print("Invalid service")
 
 if __name__ == '__main__':
 	ElasticSearchAnalyzer().run()
