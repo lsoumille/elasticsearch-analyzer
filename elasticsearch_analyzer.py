@@ -4,8 +4,8 @@
 from cortexutils.analyzer import Analyzer
 from elasticsearch import Elasticsearch
 
-#class ElasticSearchAnalyzer(Analyzer):
-class ElasticSearchAnalyzer():
+class ElasticSearchAnalyzer(Analyzer):
+#class ElasticSearchAnalyzer():
 
 	#Handle configuration file options
 	def __init__(self):
