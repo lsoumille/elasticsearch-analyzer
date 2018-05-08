@@ -14,5 +14,5 @@ Make Elasticsearch queries from extracted observables
 * Template writing
 * Cortex Integration
 * Support several Elasticsearch hosts to query
-* Add Certification verification
+* Add Certificate verification
 * Make new flavors
