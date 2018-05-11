@@ -3,6 +3,8 @@
 
 from cortexutils.analyzer import Analyzer
 from elasticsearch import Elasticsearch
+import warnings
+
 
 class ElasticSearchAnalyzer(Analyzer):
 #class ElasticSearchAnalyzer():
@@ -83,4 +85,5 @@ class ElasticSearchAnalyzer(Analyzer):
 			#print("Invalid service")
 
 if __name__ == '__main__':
+	warnings.filterwarnings("ignore")
 	ElasticSearchAnalyzer().run()
