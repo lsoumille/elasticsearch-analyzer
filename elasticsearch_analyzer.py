@@ -50,7 +50,7 @@ class ElasticSearchAnalyzer(Analyzer):
 		#print("START SEARCH")
 		try:
 			self.res = self.elasticsearch_api.search(index=self.index, body={"query": {"match": {'user':'kimchy'}}})
-			print(self.res)
+			#print(self.res)
 		except Exception as e:
 			self.error(e)
 			#print(e)
@@ -65,11 +65,11 @@ class ElasticSearchAnalyzer(Analyzer):
 			"has_result": True
 		}
 		#If no result then return an error
-		if raw["results"] == 0:
+		if raw["hits"]["total"] == 0:
 			result["has_result"] = False
 		else:
 			level = "info"
-			value = "{}".format(raw["results"])
+			value = "{}".format(raw["hits"]["total"])
 		#Build taxonomy
 		taxonomies.append(self.build_taxonomy(level, namespace, predicate, value))
 		return {"taxonomies": taxonomies}
@@ -80,6 +80,7 @@ class ElasticSearchAnalyzer(Analyzer):
 			#self.field = self.getParam('field', None, 'Field value is missing')
 			self.elasticsearch_connect()
 			self.elasticsearch_search()
+			self.report(self.res)
 		else:
 			self.error('Invalid service')
 			#print("Invalid service")
