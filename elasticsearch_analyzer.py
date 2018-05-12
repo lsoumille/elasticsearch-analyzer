@@ -4,6 +4,15 @@
 from cortexutils.analyzer import Analyzer
 from elasticsearch import Elasticsearch
 import warnings
+from elasticsearch import RequestsHttpConnection
+
+#Class for adding proxy support to Elastic4py
+class ProxiedConnection(RequestsHttpConnection):
+
+	def __init__(*args, **kwargs):
+		proxies = kwargs.pop('proxies', {})
+		super(ProxiedConnection, self).__init__(*args, **kwargs)
+		self.session.proxies = proxies
 
 
 class ElasticSearchAnalyzer(Analyzer):
@@ -21,6 +30,7 @@ class ElasticSearchAnalyzer(Analyzer):
 		self.username = self.getParam('config.username', 'elastic')
 		self.password = self.getParam('config.password', 'changeme')
 		self.index = self.getParam('config.index', "logstash-*")
+		self.proxies = self.get_param('config.proxy', None)
 		##DEBUG
 		#self.https = True
 		#self.service = "query"
@@ -45,10 +55,10 @@ class ElasticSearchAnalyzer(Analyzer):
 			elasticsearch_array.append("{}:{}".format(server, self.port))
 		#Create binding
 		try:
-			self.elasticsearch_api = Elasticsearch(elasticsearch_array, use_ssl=self.https, http_auth=self.https_auth, verify_certs=False)
+			self.elasticsearch_api = Elasticsearch(elasticsearch_array, use_ssl=self.https, http_auth=self.https_auth, verify_certs=False, connection_class=ProxiedConnection, proxies=self.proxies)
 		except Exception as e:
 			self.error(e)
-					
+
 	#Query Elasticsearch
 	def elasticsearch_search(self):
 		#print("START SEARCH")
