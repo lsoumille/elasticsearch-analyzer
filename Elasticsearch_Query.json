@@ -58,6 +58,21 @@
       "multi": false,
       "required": false,
       "defaultValue": "logstash-*"
+    },
+    {
+          "name": "cert_check",
+          "description": "Verify server certificate",
+          "type": "boolean",
+          "multi": false,
+          "required": true,
+          "defaultValue": false
+    },
+    {
+          "name": "cert_path",
+          "description": "Path to the CA on the system used to check server certificate",
+          "type": "string",
+          "multi": false,
+          "required": false
     }
   ],
   "command": "Elasticsearch/elasticsearch_analyzer.py"

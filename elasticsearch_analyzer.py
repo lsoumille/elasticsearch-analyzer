@@ -24,18 +24,20 @@ class ElasticSearchAnalyzer(Analyzer):
 		Analyzer.__init__(self)
 		#print("START INIT")
 		self.service = self.get_param('config.service', None, 'Service parameter is missing')
-		self.host = self.getParam('config.host', "localhost", 'Host parameter is missing')
-		self.port = self.getParam('config.port', "9200", 'Port parameter is missing')
-		self.https = self.getParam('config.https', False)
-		self.username = self.getParam('config.username', 'elastic')
-		self.password = self.getParam('config.password', 'changeme')
-		self.index = self.getParam('config.index', "logstash-*")
+		self.host = self.get_param('config.host', "localhost", 'Host parameter is missing')
+		self.port = self.get_param('config.port', "9200", 'Port parameter is missing')
+		self.https = self.get_param('config.https', False)
+		self.username = self.get_param('config.username', 'elastic')
+		self.password = self.get_param('config.password', 'changeme')
+		self.index = self.get_param('config.index', "logstash-*")
 		self.http_proxy = self.get_param('config.proxy_http', None)
 		self.https_proxy = self.get_param('config.proxy_https', None)
 		if self.https_proxy is not None:
-			self.proxy = self.https_proxy
+			self.proxy = { 'https': self.https_proxy }
 		else:
-			self.proxy = self.http_proxy
+			self.proxy = { 'http': self.http_proxy }
+		self.cert_check = self.get_param('config.cert_check', False)
+		self.cert_path = self.get_param('config.cert_path', None)
 		##DEBUG
 		#self.https = True
 		#self.service = "query"
@@ -60,7 +62,7 @@ class ElasticSearchAnalyzer(Analyzer):
 			elasticsearch_array.append("{}:{}".format(server, self.port))
 		#Create binding
 		try:
-			self.elasticsearch_api = Elasticsearch(elasticsearch_array, use_ssl=self.https, http_auth=self.https_auth, verify_certs=False, connection_class=ProxiedConnection, proxies=self.proxy)
+			self.elasticsearch_api = Elasticsearch(elasticsearch_array, use_ssl=self.https, http_auth=self.https_auth, verify_certs=self.cert_check, ca_certs=self.cert_path, connection_class=ProxiedConnection, proxies=self.proxy)
 		except Exception as e:
 			self.error(e)
 
