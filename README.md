@@ -11,10 +11,10 @@ Make Elasticsearch queries from extracted observables
 * Elasticsearch functions
 * Cortex input integration
 * Support several Elasticsearch hosts to query
+* Add proxy support
 
 ### To Be Done
 * Template writing
 * Add Certificate verification
 * Make new flavors
 * Extract observables
-* Add proxy support

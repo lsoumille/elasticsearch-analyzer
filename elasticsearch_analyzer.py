@@ -30,7 +30,12 @@ class ElasticSearchAnalyzer(Analyzer):
 		self.username = self.getParam('config.username', 'elastic')
 		self.password = self.getParam('config.password', 'changeme')
 		self.index = self.getParam('config.index', "logstash-*")
-		self.proxies = self.get_param('config.proxy_http', None)
+		self.http_proxy = self.get_param('config.proxy_http', None)
+		self.https_proxy = self.get_param('config.proxy_https', None)
+		if self.https_proxy is not None:
+			self.proxy = self.https_proxy
+		else:
+			self.proxy = self.http_proxy
 		##DEBUG
 		#self.https = True
 		#self.service = "query"
@@ -55,7 +60,7 @@ class ElasticSearchAnalyzer(Analyzer):
 			elasticsearch_array.append("{}:{}".format(server, self.port))
 		#Create binding
 		try:
-			self.elasticsearch_api = Elasticsearch(elasticsearch_array, use_ssl=self.https, http_auth=self.https_auth, verify_certs=False, connection_class=ProxiedConnection, proxies=self.proxies)
+			self.elasticsearch_api = Elasticsearch(elasticsearch_array, use_ssl=self.https, http_auth=self.https_auth, verify_certs=False, connection_class=ProxiedConnection, proxies=self.proxy)
 		except Exception as e:
 			self.error(e)
 
