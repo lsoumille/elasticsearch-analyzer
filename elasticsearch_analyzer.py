@@ -30,7 +30,7 @@ class ElasticSearchAnalyzer(Analyzer):
 		self.username = self.getParam('config.username', 'elastic')
 		self.password = self.getParam('config.password', 'changeme')
 		self.index = self.getParam('config.index', "logstash-*")
-		self.proxies = self.get_param('config.proxy', None)
+		self.proxies = self.get_param('config.proxy_http', None)
 		##DEBUG
 		#self.https = True
 		#self.service = "query"
