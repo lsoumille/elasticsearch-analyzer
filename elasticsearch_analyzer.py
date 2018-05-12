@@ -34,16 +34,26 @@ class ElasticSearchAnalyzer(Analyzer):
 
 	#Initialize Elasticsearch session
 	def elasticsearch_connect(self):
-		#print("START CONNECT")
-		try:
-			if self.username is not None:
-				self.https_auth = (self.username, self.password)
-			else:
-				self.https_auth = None
-			self.elasticsearch_api = Elasticsearch(["{}:{}".format(self.host, self.port)], use_ssl=self.https, http_auth=self.https_auth, verify_certs=False)
-		except Exception as e:
-			self.error(e)
-			#print(e)
+		#Setup user
+		if self.username is not None:
+			self.https_auth = (self.username, self.password)
+		else:
+			self.https_auth = None
+		if type(self.host) is list:
+			for idx, server in enumerate(self.host):
+				try: 
+					self.elasticsearch_api = Elasticsearch(["{}:{}".format(self.host, self.port)], use_ssl=self.https, http_auth=self.https_auth, verify_certs=False)
+					return
+				except Exception as e:
+					if idx == (len(self.host) - 1):
+						self.error(e)
+					else:
+						pass
+		else:
+			try: 
+				self.elasticsearch_api = Elasticsearch(["{}:{}".format(self.host, self.port)], use_ssl=self.https, http_auth=self.https_auth, verify_certs=False)
+			except Exception as e:
+				self.error(e)
 
 	#Query Elasticsearch
 	def elasticsearch_search(self):

@@ -15,7 +15,7 @@
       "name": "host",
       "description": "Elasticsearch Hostname",
       "type": "string",
-      "multi": false,
+      "multi": true,
       "required": true
     },
     {
