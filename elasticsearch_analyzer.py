@@ -9,7 +9,7 @@ from elasticsearch import RequestsHttpConnection
 #Class for adding proxy support to Elastic4py
 class ProxiedConnection(RequestsHttpConnection):
 
-	def __init__(*args, **kwargs):
+	def __init__(self, *args, **kwargs):
 		proxies = kwargs.pop('proxies', {})
 		super(ProxiedConnection, self).__init__(*args, **kwargs)
 		self.session.proxies = proxies
