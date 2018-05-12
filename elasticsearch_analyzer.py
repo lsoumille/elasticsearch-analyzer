@@ -39,22 +39,16 @@ class ElasticSearchAnalyzer(Analyzer):
 			self.https_auth = (self.username, self.password)
 		else:
 			self.https_auth = None
-		if type(self.host) is list:
-			for idx, server in enumerate(self.host):
-				try: 
-					self.elasticsearch_api = Elasticsearch(["{}:{}".format(self.host, self.port)], use_ssl=self.https, http_auth=self.https_auth, verify_certs=False)
-					return
-				except Exception as e:
-					if idx == (len(self.host) - 1):
-						self.error(e)
-					else:
-						pass
-		else:
+		for idx, server in self.host:
 			try: 
 				self.elasticsearch_api = Elasticsearch(["{}:{}".format(self.host, self.port)], use_ssl=self.https, http_auth=self.https_auth, verify_certs=False)
+				return
 			except Exception as e:
-				self.error(e)
-
+				if idx == (len(self.host) - 1):
+					self.error(e)
+				else:
+					pass
+					
 	#Query Elasticsearch
 	def elasticsearch_search(self):
 		#print("START SEARCH")

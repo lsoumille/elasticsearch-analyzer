@@ -16,7 +16,8 @@
       "description": "Elasticsearch Hostname",
       "type": "string",
       "multi": true,
-      "required": true
+      "required": true,
+      "defaultValue": "localhost"
     },
     {
       "name": "port",

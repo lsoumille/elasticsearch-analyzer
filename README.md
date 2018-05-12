@@ -17,3 +17,4 @@ Make Elasticsearch queries from extracted observables
 * Add Certificate verification
 * Make new flavors
 * Extract observables
+* Add proxy support
