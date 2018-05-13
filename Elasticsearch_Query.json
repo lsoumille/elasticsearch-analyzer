@@ -9,7 +9,7 @@
   "baseConfig": "Elasticsearch",
   "config": {
     "service": "es-query",
-    "query": "{'query': {'match': {'user':'kimchy'}}}"
+    "query": "{\"query\": {\"match\": {'user':'kimchy'}}}"
   },
   "configurationItems": [
     {

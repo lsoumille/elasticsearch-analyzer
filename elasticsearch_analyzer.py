@@ -71,7 +71,7 @@ class ElasticSearchAnalyzer(Analyzer):
 	def elasticsearch_search(self):
 		#print("START SEARCH")
 		try:
-			self.res = self.elasticsearch_api.search(index=self.index, body=self.query)
+			self.res = self.elasticsearch_api.search(index=self.index, body=eval(self.query))
 			#print(self.res)
 		except Exception as e:
 			self.error(e)
