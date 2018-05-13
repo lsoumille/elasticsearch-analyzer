@@ -38,6 +38,7 @@ class ElasticSearchAnalyzer(Analyzer):
 			self.proxy = { 'http': self.http_proxy }
 		self.cert_check = self.get_param('config.cert_check', False)
 		self.cert_path = self.get_param('config.cert_path', None)
+		self.query = self.get_param('config.query', None, 'Query is missing')
 		##DEBUG
 		#self.https = True
 		#self.service = "query"
@@ -70,7 +71,7 @@ class ElasticSearchAnalyzer(Analyzer):
 	def elasticsearch_search(self):
 		#print("START SEARCH")
 		try:
-			self.res = self.elasticsearch_api.search(index=self.index, body={"query": {"match": {'user':'kimchy'}}})
+			self.res = self.elasticsearch_api.search(index=self.index, body=self.query)
 			#print(self.res)
 		except Exception as e:
 			self.error(e)
