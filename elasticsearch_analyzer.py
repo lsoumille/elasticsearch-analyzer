@@ -70,6 +70,7 @@ class ElasticSearchAnalyzer(Analyzer):
 	#Query Elasticsearch
 	def elasticsearch_search(self):
 		#print("START SEARCH")
+		print(self.query.format("kimchy"))
 		try:
 			self.res = self.elasticsearch_api.search(index=self.index, body=eval(self.query))
 			#print(self.res)
