@@ -38,7 +38,11 @@ class ElasticSearchAnalyzer(Analyzer):
 			self.proxy = { 'http': self.http_proxy }
 		self.cert_check = self.get_param('config.cert_check', False)
 		self.cert_path = self.get_param('config.cert_path', None)
-		self.query = self.get_param('config.query', None, 'Query is missing')
+		incomplete_query = self.get_param('config.query', None, 'Query is missing')
+		if "%s" not in incomplete_query:
+			self.query = incomplete_query
+		else:
+			self.query = incomplete_query % self.get_data()
 		##DEBUG
 		#self.https = True
 		#self.service = "query"
@@ -70,7 +74,6 @@ class ElasticSearchAnalyzer(Analyzer):
 	#Query Elasticsearch
 	def elasticsearch_search(self):
 		#print("START SEARCH")
-		print(self.query.format("kimchy"))
 		try:
 			self.res = self.elasticsearch_api.search(index=self.index, body=eval(self.query))
 			#print(self.res)
