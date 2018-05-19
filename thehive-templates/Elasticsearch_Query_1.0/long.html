@@ -18,9 +18,9 @@
                         <th>Key</th>
                         <th>Value</th>
                     </tr>
-                    <tr ng-repeat="(key, value) in content.aggregations.agg.buckets">
-                        <td><strong>{{scanner}}</strong></td>
-                        <td>{{value}}</td>
+                    <tr ng-repeat="(k,v) in content.aggregations.agg.buckets">
+                        <td><strong>{{v.key}}</strong></td>
+                        <td>{{v.doc_count}}</td>
                     </tr>
                 </table>
             </div>
