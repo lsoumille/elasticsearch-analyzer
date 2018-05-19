@@ -9,7 +9,7 @@
   "baseConfig": "Elasticsearch",
   "config": {
     "service": "es-query",
-    "query": "{\"query\": {\"match\": {'user':'%s'}}}"
+    "query": "{\"query\": {\"match\": {'user':'%s'}},\"aggs\" : {\"per_user\": {\"terms\": {\"field\": \"user\"}}}}"
   },
   "configurationItems": [
     {
