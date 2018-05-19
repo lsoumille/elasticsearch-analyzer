@@ -1,0 +1,39 @@
+<div class="panel panel-danger" ng-if="!success">
+    <div class="panel-heading">
+        <strong>{{(artifact.data || artifact.attachment.name) | fang}}</strong>
+    </div>
+    <div class="panel-body">
+        {{content.errorMessage}}
+    </div>
+</div>
+
+
+<div ng-switch="content.hits.total" ng-if="success">
+    <div ng-switch-default>
+        <div class="panel panel-info">
+            <div class="panel-heading"><strong>Results</strong></div>
+            <div class="panel-body">
+                <table class="table table-hover">
+                    <tr>
+                        <th>Key</th>
+                        <th>Value</th>
+                    </tr>
+                    <tr ng-repeat="(key, value) in content.aggregations.agg.buckets">
+                        <td><strong>{{scanner}}</strong></td>
+                        <td>{{value}}</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div ng-switch-when="0">
+        <div class="panel panel-danger">
+            <div class="panel-heading">
+                <strong>{{(artifact.data || artifact.attachment.name)| fang}}</strong>
+            </div>
+            <div class="panel-body">
+                No results found
+            </div>
+        </div>
+    </div>
+</div>
