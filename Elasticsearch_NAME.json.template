@@ -1,15 +1,15 @@
 {
-  "name": "Elasticsearch_Query",
+  "name": "Elasticsearch_XXXX",
   "version": "1.0",
-  "author": "Soumille Lucas",
+  "author": "XXXX",
   "url": "https://github.com/TheHive-Project/Cortex-Analyzers",
   "license": "AGPL-V3",
   "description": "Make queries from observables to Elasticsearch",
-  "dataTypeList": ["domain", "ip", "url", "fqdn", "uri_path","user-agent", "hash", "email", "mail", "mail_subject" , "registry", "regexp", "other", "filename"],
+  "dataTypeList": ["XXXX", "XXXX", ...],
   "baseConfig": "Elasticsearch",
   "config": {
     "service": "es-query",
-    "query": "{\"query\": { \"bool\": { \"must\": [ {\"match\": {'user':'%s'}} ], \"filter\": [ { \"range\": { \"@timestamp\": { \"gte\": \"now-30d\" }}}]}} ,\"aggs\" : {\"agg\": {\"terms\": {\"field\": \"message.keyword\", \"size\" : 10}}}}"
+    "query": "XXXX"
   },
   "configurationItems": [
     {

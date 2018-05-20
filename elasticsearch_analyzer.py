@@ -14,15 +14,11 @@ class ProxiedConnection(RequestsHttpConnection):
 		super(ProxiedConnection, self).__init__(*args, **kwargs)
 		self.session.proxies = proxies
 
-
 class ElasticSearchAnalyzer(Analyzer):
-#class ElasticSearchAnalyzer():
 
 	#Handle configuration file options
 	def __init__(self):
-		#print("START INIT")
 		Analyzer.__init__(self)
-		#print("START INIT")
 		self.service = self.get_param('config.service', None, 'Service parameter is missing')
 		self.host = self.get_param('config.host', "localhost", 'Host parameter is missing')
 		self.port = self.get_param('config.port', "9200", 'Port parameter is missing')
@@ -43,16 +39,6 @@ class ElasticSearchAnalyzer(Analyzer):
 			self.query = incomplete_query
 		else:
 			self.query = incomplete_query % self.get_data()
-		##DEBUG
-		#self.https = True
-		#self.service = "query"
-		#self.host = "localhost"
-		#self.port = "9200"
-		#self.username = "elastic"
-		#self.password = "changeme"
-		#self.index = "logstash-*"
-		##DEBUG
-		
 
 	#Initialize Elasticsearch session
 	def elasticsearch_connect(self):
@@ -73,13 +59,10 @@ class ElasticSearchAnalyzer(Analyzer):
 
 	#Query Elasticsearch
 	def elasticsearch_search(self):
-		#print("START SEARCH")
 		try:
 			self.res = self.elasticsearch_api.search(index=self.index, body=eval(self.query))
-			#print(self.res)
 		except Exception as e:
 			self.error(e)
-			#print(e)
 
 	#Generate Short report
 	def summary(self, raw):
@@ -100,17 +83,17 @@ class ElasticSearchAnalyzer(Analyzer):
 		taxonomies.append(self.build_taxonomy(level, namespace, predicate, value))
 		return {"taxonomies": taxonomies}
 
+	#Analyzer main function
 	def run(self):
-		#print("START RUN")
 		if self.service == 'es-query':
-			#self.field = self.getParam('field', None, 'Field value is missing')
 			self.elasticsearch_connect()
 			self.elasticsearch_search()
 			self.report(self.res)
 		else:
 			self.error('Invalid service')
-			#print("Invalid service")
 
 if __name__ == '__main__':
-	warnings.filterwarnings("ignore")
+	#Remove warning if you don't use Certificate validation
+	if self.cert_check == False:
+		warnings.filterwarnings("ignore")
 	ElasticSearchAnalyzer().run()
