@@ -9,7 +9,8 @@
   "baseConfig": "Elasticsearch",
   "config": {
     "service": "es-query",
-    "query": "{\"query\": {\"match\": {'user':'%s'}},\"aggs\" : {\"agg\": {\"terms\": {\"field\": \"message.keyword\"}}}}"
+    "query": "{\"query\": {\"match\": {'user':'%s'}},\"aggs\" : {\"agg\": {\"terms\": {\"field\": \"message.keyword\", \"size\" : 10}}}}"
+    "query": "{\"query\": { \"bool\": { \"must\": [ {\"match\": {'user':'%s'}} ], \"filter\": [ { \"range\": { \"@timestamp\": { \" gte \": \"now-7d\" }}]}} ,\"aggs\" : {\"agg\": {\"terms\": {\"field\": \"message.keyword\", \"size\" : 10}}}}}"
   },
   "configurationItems": [
     {
