@@ -76,5 +76,5 @@
       "required": false
     }
   ],
-  "command": "Elasticsearch/elasticsearch_analyzer.py"
+  "command": "elasticsearch-analyzer/elasticsearch_analyzer.py"
 }
