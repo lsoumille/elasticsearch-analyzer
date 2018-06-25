@@ -23,6 +23,9 @@ Make Elasticsearch queries from extracted observables
 * Make new flavors
 
 ## How to make a new flavor
+* Clone this repository
+* Install python requirement (pip install -r requirements.txt)
+* Add execution right to python script (chmod +x elasticsearch_analyzer.py)
 * Copy paste Elasticsearch_base.json.template to Elasticsearch_NAME.json
 * Fulfill Elasticsearch_NAME.json, replace XXXX vy values that are matching your environment
 * Add Elasticsearch_NAME as name value
