@@ -60,7 +60,7 @@ class ElasticSearchAnalyzer(Analyzer):
 	#Query Elasticsearch
 	def elasticsearch_search(self):
 		try:
-			self.res = self.elasticsearch_api.search(index=self.index, body=eval(self.query))
+			self.res = self.elasticsearch_api.search(index=self.index, body=eval(self.query), request_timeout=120)
 		except Exception as e:
 			self.error(e)
 
